@@ -43,11 +43,15 @@ resource "aws_security_group" "web_sg" {
 # S3 Bucket
 resource "aws_s3_bucket" "my_bucket" {
   bucket = "curalate-bucket"  
-  acl    = "public-read"
   tags = {
     Name        = "MyStaticAssetsBucket"
     Environment = "Dev"
   }
+}
+# S3 Bucket ACL
+resource "aws_s3_bucket_acl" "my_bucket_acl" {
+  bucket = aws_s3_bucket.my_bucket.bucket
+  acl    = "public-read"
 }
 # EC2 instance
 resource "aws_instance" "web_instance" {
